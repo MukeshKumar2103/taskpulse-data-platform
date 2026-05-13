@@ -16,7 +16,7 @@
     "baseUrl": ".",
 
     "paths": {
-      "@shared/*": ["shared/*"],
+      "@shared/*": ["apps/api/src/shared/*"],
       "@clean-db/*": ["databases/clean-db/*"],
       "@raw-db/*": ["databases/raw-db/*"],
       "@analytics-db/*": ["databases/analytics-db/*"]

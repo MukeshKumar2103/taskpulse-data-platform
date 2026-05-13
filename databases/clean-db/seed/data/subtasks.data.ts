@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { ulid } from "ulid";
 
+import { TASKS } from "./tasks.data";
 import { PROJECTS } from "./projects.data";
 import { WORKSPACES } from "./workspaces.data";
 import { ORGANIZATIONS } from "./organizations.data";
@@ -8,8 +9,10 @@ import { USERS } from "./users.data";
 
 faker.seed(12345);
 
-export const TASKS = Array.from({ length: 100 }).map((_, index) => ({
+export const SUBTASKS = Array.from({ length: 200 }).map((_, index) => ({
   id: ulid(),
+
+  taskId: TASKS[index % TASKS.length].id,
 
   projectId: PROJECTS[index % PROJECTS.length].id,
 
@@ -21,7 +24,7 @@ export const TASKS = Array.from({ length: 100 }).map((_, index) => ({
 
   title: faker.hacker.phrase(),
 
-  description: faker.lorem.paragraph(),
+  description: faker.lorem.sentence(),
 
   status: faker.helpers.arrayElement(["todo", "in_progress", "completed"]),
 
@@ -29,12 +32,12 @@ export const TASKS = Array.from({ length: 100 }).map((_, index) => ({
 
   estimatedHours: faker.number.int({
     min: 1,
-    max: 40,
+    max: 20,
   }),
 
   actualHours: faker.number.int({
     min: 1,
-    max: 50,
+    max: 30,
   }),
 
   version: 1,

@@ -10,6 +10,7 @@
     "clean:generate": "drizzle-kit generate --config=./databases/clean-db/drizzle.config.ts",
     "clean:push": "drizzle-kit push --config=./databases/clean-db/drizzle.config.ts",
     "clean:migrate": "drizzle-kit migrate --config=./databases/clean-db/drizzle.config.ts",
+    "clean:seed": "tsx databases/clean-db/seed/seed.ts",
     "raw:generate": "drizzle-kit generate --config=./databases/raw-db/drizzle.config.ts",
     "raw:push": "drizzle-kit push --config=./databases/raw-db/drizzle.config.ts",
     "raw:migrate": "drizzle-kit migrate --config=./databases/raw-db/drizzle.config.ts",
@@ -43,6 +44,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^10.4.0",
+    "argon2": "^0.44.0",
     "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
     "pg": "^8.20.0",
