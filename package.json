@@ -1,0 +1,52 @@
+{
+  "name": "taskpulse-data-platform",
+  "version": "1.0.0",
+  "description": "A Dockerized multi-stage analytics platform that simulates real-time workspace activity, processes raw event streams through ETL pipelines, computes analytics metrics, and serves precomputed analytics APIs.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "clean:generate": "drizzle-kit generate --config=./databases/clean-db/drizzle.config.ts",
+    "clean:push": "drizzle-kit push --config=./databases/clean-db/drizzle.config.ts",
+    "clean:migrate": "drizzle-kit migrate --config=./databases/clean-db/drizzle.config.ts",
+    "raw:generate": "drizzle-kit generate --config=./databases/raw-db/drizzle.config.ts",
+    "raw:push": "drizzle-kit push --config=./databases/raw-db/drizzle.config.ts",
+    "raw:migrate": "drizzle-kit migrate --config=./databases/raw-db/drizzle.config.ts",
+    "analytics:generate": "drizzle-kit generate --config=./databases/analytics-db/drizzle.config.ts",
+    "analytics:push": "drizzle-kit push --config=./databases/analytics-db/drizzle.config.ts",
+    "analytics:migrate": "drizzle-kit migrate --config=./databases/analytics-db/drizzle.config.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MukeshKumar2103/taskpulse-data-platform.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MukeshKumar2103/taskpulse-data-platform/issues"
+  },
+  "homepage": "https://github.com/MukeshKumar2103/taskpulse-data-platform#readme",
+  "devDependencies": {
+    "@t3-oss/env-core": "^0.13.11",
+    "@types/node": "^25.7.0",
+    "@types/pg": "^8.20.0",
+    "drizzle-kit": "^0.30.6",
+    "eslint": "^10.3.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^10.4.0",
+    "dotenv": "^17.4.2",
+    "drizzle-orm": "^0.45.2",
+    "pg": "^8.20.0",
+    "ulid": "^3.0.2",
+    "zod": "^4.4.3"
+  }
+}
