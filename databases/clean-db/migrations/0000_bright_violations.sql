@@ -55,6 +55,8 @@ CREATE TABLE "tasks" (
 	"status" varchar(20) DEFAULT 'todo' NOT NULL,
 	"priority" varchar(20) DEFAULT 'medium' NOT NULL,
 	"task_type" varchar(50) DEFAULT 'feature' NOT NULL,
+	"estimated_hours" integer,
+	"actual_hours" integer,
 	"version" integer DEFAULT 1 NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
@@ -82,6 +84,11 @@ CREATE TABLE "subtasks" (
 	"status" varchar(20) DEFAULT 'todo' NOT NULL,
 	"priority" varchar(20) DEFAULT 'medium' NOT NULL,
 	"task_type" varchar(50) DEFAULT 'subtask' NOT NULL,
+	"due_at" timestamp,
+	"started_at" timestamp,
+	"completed_at" timestamp,
+	"estimated_hours" integer,
+	"actual_hours" integer,
 	"version" integer DEFAULT 1 NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
@@ -143,11 +150,11 @@ ALTER TABLE "workspaces" ADD CONSTRAINT "workspaces_organization_id_organization
 ALTER TABLE "workspace_members" ADD CONSTRAINT "workspace_members_workspace_id_workspaces_id_fk" FOREIGN KEY ("workspace_id") REFERENCES "public"."workspaces"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "workspace_members" ADD CONSTRAINT "workspace_members_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "workspace_members" ADD CONSTRAINT "workspace_members_invited_by_users_id_fk" FOREIGN KEY ("invited_by") REFERENCES "public"."users"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-CREATE UNIQUE INDEX "users_email_unique_idx" ON "users" USING btree (LOWER("email")) WHERE "users"."deleted_at" IS NULL;--> statement-breakpoint
+CREATE UNIQUE INDEX "users_email_unique_idx" ON "users" USING btree ("email");--> statement-breakpoint
 CREATE INDEX "users_deleted_at_idx" ON "users" USING btree ("deleted_at");--> statement-breakpoint
 CREATE INDEX "users_locked_until_idx" ON "users" USING btree ("locked_until");--> statement-breakpoint
 CREATE INDEX "users_updated_at_idx" ON "users" USING btree ("updated_at");--> statement-breakpoint
-CREATE UNIQUE INDEX "organizations_slug_unique_idx" ON "organizations" USING btree (LOWER("slug")) WHERE "organizations"."deleted_at" IS NULL;--> statement-breakpoint
+CREATE UNIQUE INDEX "organizations_slug_unique_idx" ON "organizations" USING btree ("slug");--> statement-breakpoint
 CREATE INDEX "organizations_deleted_at_idx" ON "organizations" USING btree ("deleted_at");--> statement-breakpoint
 CREATE INDEX "organizations_updated_at_idx" ON "organizations" USING btree ("updated_at");--> statement-breakpoint
 CREATE INDEX "projects_workspace_id_idx" ON "projects" USING btree ("workspace_id");--> statement-breakpoint
@@ -164,7 +171,6 @@ CREATE INDEX "subtasks_workspace_status_priority_idx" ON "subtasks" USING btree 
 CREATE INDEX "subtasks_deleted_at_idx" ON "subtasks" USING btree ("deleted_at");--> statement-breakpoint
 CREATE INDEX "subtasks_updated_at_idx" ON "subtasks" USING btree ("updated_at");--> statement-breakpoint
 CREATE INDEX "workspaces_org_idx" ON "workspaces" USING btree ("organization_id");--> statement-breakpoint
-CREATE UNIQUE INDEX "workspaces_slug_unique_in_org_idx" ON "workspaces" USING btree ("organization_id",LOWER("slug")) WHERE "workspaces"."deleted_at" IS NULL;--> statement-breakpoint
 CREATE INDEX "workspace_members_workspace_idx" ON "workspace_members" USING btree ("workspace_id");--> statement-breakpoint
 CREATE INDEX "workspace_members_user_idx" ON "workspace_members" USING btree ("user_id");--> statement-breakpoint
-CREATE UNIQUE INDEX "workspace_members_unique_idx" ON "workspace_members" USING btree ("workspace_id","user_id") WHERE "workspace_members"."deleted_at" IS NULL;
+CREATE UNIQUE INDEX "workspace_members_unique_idx" ON "workspace_members" USING btree ("workspace_id","user_id");

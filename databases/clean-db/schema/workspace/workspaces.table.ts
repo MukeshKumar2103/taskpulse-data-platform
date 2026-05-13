@@ -28,11 +28,5 @@ export const workspaces = pgTable(
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
     deletedAt: timestamp("deleted_at"),
   },
-  (table) => [
-    index("workspaces_org_idx").on(table.organizationId),
-
-    uniqueIndex("workspaces_slug_unique_in_org_idx")
-      .on(table.organizationId, sql`LOWER(${table.slug})`)
-      .where(sql`${table.deletedAt} IS NULL`),
-  ],
+  (table) => [index("workspaces_org_idx").on(table.organizationId)],
 );

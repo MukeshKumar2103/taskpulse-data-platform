@@ -54,9 +54,10 @@ export const workspaceMembers = pgTable(
     return [
       index("workspace_members_workspace_idx").on(table.workspaceId),
       index("workspace_members_user_idx").on(table.userId),
-      uniqueIndex("workspace_members_unique_idx")
-        .on(table.workspaceId, table.userId)
-        .where(sql`${table.deletedAt} IS NULL`),
+      uniqueIndex("workspace_members_unique_idx").on(
+        table.workspaceId,
+        table.userId,
+      ),
     ];
   },
 );

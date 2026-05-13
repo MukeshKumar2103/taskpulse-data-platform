@@ -43,9 +43,7 @@ export const users = pgTable(
     deletedAt: timestamp("deleted_at"),
   },
   (table) => [
-    uniqueIndex("users_email_unique_idx")
-      .on(sql`LOWER(${table.email})`)
-      .where(sql`${table.deletedAt} IS NULL`),
+    uniqueIndex("users_email_unique_idx").on(table.email),
     index("users_deleted_at_idx").on(table.deletedAt),
     index("users_locked_until_idx").on(table.lockedUntil),
     index("users_updated_at_idx").on(table.updatedAt),

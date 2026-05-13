@@ -46,6 +46,20 @@ export const subtasks = pgTable(
     priority: varchar("priority", { length: 20 }).notNull().default("medium"), // low|medium|high
     taskType: varchar("task_type", { length: 50 }).notNull().default("subtask"),
 
+    dueAt: timestamp("due_at"),
+
+    startedAt: timestamp("started_at"),
+
+    completedAt: timestamp("completed_at"),
+
+    // =========================================
+    // ANALYTICS METRICS
+    // =========================================
+
+    estimatedHours: integer("estimated_hours"),
+
+    actualHours: integer("actual_hours"),
+
     version: integer("version").notNull().default(1),
 
     createdAt: timestamp("created_at").defaultNow().notNull(),

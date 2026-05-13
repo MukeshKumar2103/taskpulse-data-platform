@@ -35,9 +35,7 @@ export const organizations = pgTable(
     deletedAt: timestamp("deleted_at"),
   },
   (table) => [
-    uniqueIndex("organizations_slug_unique_idx")
-      .on(sql`LOWER(${table.slug})`)
-      .where(sql`${table.deletedAt} IS NULL`),
+    uniqueIndex("organizations_slug_unique_idx").on(table.slug),
     index("organizations_deleted_at_idx").on(table.deletedAt),
     index("organizations_updated_at_idx").on(table.updatedAt),
   ],

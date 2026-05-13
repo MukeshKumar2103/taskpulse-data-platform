@@ -1,5 +1,5 @@
 {
-  "id": "73546574-9d22-4ab7-b8af-ee4526ca33fe",
+  "id": "6ba7b4d2-a49d-41db-9e44-fc5cd2a30e7a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -128,14 +128,13 @@
           "name": "users_email_unique_idx",
           "columns": [
             {
-              "expression": "LOWER(\"email\")",
+              "expression": "email",
+              "isExpression": false,
               "asc": true,
-              "isExpression": true,
               "nulls": "last"
             }
           ],
           "isUnique": true,
-          "where": "\"users\".\"deleted_at\" IS NULL",
           "concurrently": false,
           "method": "btree",
           "with": {}
@@ -248,14 +247,13 @@
           "name": "organizations_slug_unique_idx",
           "columns": [
             {
-              "expression": "LOWER(\"slug\")",
+              "expression": "slug",
+              "isExpression": false,
               "asc": true,
-              "isExpression": true,
               "nulls": "last"
             }
           ],
           "isUnique": true,
-          "where": "\"organizations\".\"deleted_at\" IS NULL",
           "concurrently": false,
           "method": "btree",
           "with": {}
@@ -533,6 +531,18 @@
           "primaryKey": false,
           "notNull": true,
           "default": "'feature'"
+        },
+        "estimated_hours": {
+          "name": "estimated_hours",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "actual_hours": {
+          "name": "actual_hours",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
         },
         "version": {
           "name": "version",
@@ -861,6 +871,36 @@
           "primaryKey": false,
           "notNull": true,
           "default": "'subtask'"
+        },
+        "due_at": {
+          "name": "due_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "started_at": {
+          "name": "started_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completed_at": {
+          "name": "completed_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "estimated_hours": {
+          "name": "estimated_hours",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "actual_hours": {
+          "name": "actual_hours",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
         },
         "version": {
           "name": "version",
@@ -1215,28 +1255,6 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
-        },
-        "workspaces_slug_unique_in_org_idx": {
-          "name": "workspaces_slug_unique_in_org_idx",
-          "columns": [
-            {
-              "expression": "organization_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "LOWER(\"slug\")",
-              "asc": true,
-              "isExpression": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
-          "where": "\"workspaces\".\"deleted_at\" IS NULL",
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
         }
       },
       "foreignKeys": {
@@ -1389,7 +1407,6 @@
             }
           ],
           "isUnique": true,
-          "where": "\"workspace_members\".\"deleted_at\" IS NULL",
           "concurrently": false,
           "method": "btree",
           "with": {}

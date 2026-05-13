@@ -7,9 +7,9 @@ import {
   integer,
 } from "drizzle-orm/pg-core";
 import { projects } from "./projects.table";
-import { users } from "../identity/users.table";
 import { workspaces } from "../workspace/workspaces.table";
 import { organizations } from "../organization/organizations.table";
+import { users } from "../identity/users.table";
 
 export const tasks = pgTable(
   "tasks",
@@ -34,26 +34,42 @@ export const tasks = pgTable(
     ),
 
     title: text("title").notNull(),
+
     description: text("description"),
 
-    status: varchar("status", { length: 20 }).notNull().default("todo"), // todo|in_progress|done
-    priority: varchar("priority", { length: 20 }).notNull().default("medium"), // low|medium|high
+    status: varchar("status", { length: 20 }).notNull().default("todo"),
+
+    priority: varchar("priority", { length: 20 }).notNull().default("medium"),
+
     taskType: varchar("task_type", { length: 50 }).notNull().default("feature"),
+
+    // =========================================
+    // ANALYTICS METRICS
+    // =========================================
+
+    estimatedHours: integer("estimated_hours"),
+
+    actualHours: integer("actual_hours"),
 
     version: integer("version").notNull().default(1),
 
     createdAt: timestamp("created_at").defaultNow().notNull(),
+
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
+
     deletedAt: timestamp("deleted_at"),
   },
   (table) => [
     index("tasks_project_id_idx").on(table.projectId),
+
     index("tasks_workspace_status_priority_idx").on(
       table.workspaceId,
       table.status,
       table.priority,
     ),
+
     index("tasks_deleted_at_idx").on(table.deletedAt),
+
     index("tasks_updated_at_idx").on(table.updatedAt),
   ],
 );
