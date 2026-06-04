@@ -6,6 +6,27 @@ The platform is designed to model real-world data engineering workflows using co
 
 ---
 
+## Current Development Status
+
+### Completed
+- Multi-database architecture design
+- Raw, Clean, and Analytics database schemas
+- Dockerized project structure
+- Event data model design
+- Service architecture planning
+
+### In Progress
+- Event Generator Service
+- Cleaning & Transformation Worker
+- Analytics Processing Worker
+
+### Planned
+- Metrics computation pipelines
+- Analytics APIs
+- Monitoring and observability
+
+---
+
 # Tech Stack
 
 | Layer               | Technology     |

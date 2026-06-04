@@ -16,7 +16,10 @@
     "raw:migrate": "drizzle-kit migrate --config=./databases/raw-db/drizzle.config.ts",
     "analytics:generate": "drizzle-kit generate --config=./databases/analytics-db/drizzle.config.ts",
     "analytics:push": "drizzle-kit push --config=./databases/analytics-db/drizzle.config.ts",
-    "analytics:migrate": "drizzle-kit migrate --config=./databases/analytics-db/drizzle.config.ts"
+    "analytics:migrate": "drizzle-kit migrate --config=./databases/analytics-db/drizzle.config.ts",
+    "pipeline:workspace": "python3 apps/analytics-python/pipelines/workspace_metrics.py",
+    "pipeline:tasks": "python3 apps/analytics-python/pipelines/task_aggregation.py",
+    "pipeline:productivity": "python3 apps/analytics-python/pipelines/productivity_metrics.py"
   },
   "repository": {
     "type": "git",

@@ -29,3 +29,7 @@ jspm_packages/
 # OS files
 .DS_Store
 Thumbs.db
+
+venv/
+__pycache__/
+*.pyc
