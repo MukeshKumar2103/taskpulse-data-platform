@@ -7,6 +7,8 @@ import { seedUsers } from "./users.seed";
 import { seedProjects } from "./projects.seed";
 import { seedTasks } from "./tasks.seed";
 import { seedSubtasks } from "./subtasks.seed";
+import { seedTaskAssignees } from "./task_assignees.seed";
+import { seedSubtaskAssignees } from "./subtask_assignees.seed";
 
 async function main() {
   console.log("🚀 Starting clean DB seed...");
@@ -24,6 +26,10 @@ async function main() {
   await seedTasks();
 
   await seedSubtasks();
+
+  await seedTaskAssignees();
+
+  await seedSubtaskAssignees();
 
   console.log("🎉 All clean tables seeded");
 }

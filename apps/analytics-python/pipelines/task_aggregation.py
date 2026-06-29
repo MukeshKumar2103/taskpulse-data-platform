@@ -1,42 +1,17 @@
-from shared.db import get_clean_connection
+from extractors.extract_subtasks import extract_subtasks
+from transformers.tasks_metrics import transform_task_metrics
+from loaders.tasks_metrics_loader import tasks_metrics_loader
 
 
-def extract_tasks():
+def task_metrics():
+    tasks = extract_subtasks()
 
-    conn = get_clean_connection()
+    metrics = transform_task_metrics(tasks)
 
-    cursor = conn.cursor()
+    tasks_metrics_loader(metrics)
 
+    print(f'subtasks {len(tasks)} {len(metrics)}')
 
-    cursor.execute("""
-        SELECT
-            id,
-            workspace_id,
-            project_id,
-            status,
-            priority,
-            estimated_hours,
-            actual_hours,
-            created_at
-        FROM tasks
-    """)
-
-
-    rows = cursor.fetchall()
-
-
-    cursor.close()
-    conn.close()
-
-
-    return rows
 
 if __name__ == "__main__":
-  
-  tasks = extract_tasks()
-
-  print(
-        f"Extracted {len(tasks)} tasks"
-    )
-
-  print(tasks[:5])
+    task_metrics()
