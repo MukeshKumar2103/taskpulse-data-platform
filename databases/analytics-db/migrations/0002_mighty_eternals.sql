@@ -1,0 +1,1 @@
+ALTER TABLE "workspace_productivity_metrics" ADD COLUMN "updated_at" timestamp DEFAULT now() NOT NULL;

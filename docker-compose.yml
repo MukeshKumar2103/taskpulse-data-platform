@@ -1,0 +1,86 @@
+version: "3.9"
+
+services:
+  # =========================================
+  # RAW DATABASE
+  # =========================================
+  postgres_raw:
+    image: postgres:16
+    container_name: postgres_raw
+
+    restart: always
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: raw_db
+
+    ports:
+      - "5480:5432"
+
+    volumes:
+      - raw_db_data:/var/lib/postgresql/data
+
+    networks:
+      - taskpulse_network
+
+  # =========================================
+  # CLEAN DATABASE
+  # =========================================
+  postgres_clean:
+    image: postgres:16
+    container_name: postgres_clean
+
+    restart: always
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: clean_db
+
+    ports:
+      - "5481:5432"
+
+    volumes:
+      - clean_db_data:/var/lib/postgresql/data
+
+    networks:
+      - taskpulse_network
+
+  # =========================================
+  # ANALYTICS DATABASE
+  # =========================================
+  postgres_analytics:
+    image: postgres:16
+    container_name: postgres_analytics
+
+    restart: always
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: analytics_db
+
+    ports:
+      - "5482:5432"
+
+    volumes:
+      - analytics_db_data:/var/lib/postgresql/data
+
+    networks:
+      - taskpulse_network
+
+# =========================================
+# NETWORKS
+# =========================================
+networks:
+  taskpulse_network:
+    driver: bridge
+
+# =========================================
+# VOLUMES
+# =========================================
+volumes:
+  raw_db_data:
+  clean_db_data:
+  analytics_db_data:
