@@ -27,7 +27,9 @@ def extract_tasks():
 
     cursor.close()
     conn.close()
-
+    
+    print(rows[:1])
+    
 
     return rows
 

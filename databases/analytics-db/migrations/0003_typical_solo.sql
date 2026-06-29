@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "workspace_productivity_workspace_unique" ON "workspace_productivity_metrics" USING btree ("workspace_id");
