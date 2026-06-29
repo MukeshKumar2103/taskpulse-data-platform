@@ -1,24 +1,22 @@
 from shared.db import get_clean_connection
 
 
-def extract_tasks():
-
+def extract_subtasks():
     conn = get_clean_connection()
 
     cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT
+    cursor.execute(
+        """
+        SELECT 
             id,
-            workspace_id,
-            project_id,
+            task_id,
             status,
-            priority,
             estimated_hours,
-            actual_hours,
-            created_at
-        FROM tasks
-    """)
+            actual_hours
+        FROM subtasks
+    """
+    )
 
     rows = cursor.fetchall()
 
@@ -30,10 +28,10 @@ def extract_tasks():
 
 if __name__ == "__main__":
 
-    tasks = extract_tasks()
+    subtasks = extract_subtasks()
 
     print(
-        f"Extracted {len(tasks)} tasks"
+        f"Extracted {len(subtasks)} subtasks"
     )
 
-    print(tasks[:5])
+    print(subtasks[:5])
