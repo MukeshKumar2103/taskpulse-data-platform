@@ -36,6 +36,13 @@
       "when": 1782734408532,
       "tag": "0004_glossy_karen_page",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1782752103301,
+      "tag": "0005_light_stellaris",
+      "breakpoints": true
     }
   ]
 }

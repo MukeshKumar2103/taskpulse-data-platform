@@ -3,7 +3,7 @@ import { ulid } from "ulid";
 
 faker.seed(12345);
 
-export const USERS = Array.from({ length: 30 }).map(() => ({
+export const USERS = Array.from({ length: 50 }).map(() => ({
   id: ulid(),
 
   firstName: faker.person.firstName(),

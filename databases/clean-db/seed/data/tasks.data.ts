@@ -8,38 +8,66 @@ import { USERS } from "./users.data";
 
 faker.seed(12345);
 
-export const TASKS = Array.from({ length: 100 }).map((_, index) => ({
-  id: ulid(),
+export const TASKS = Array.from({ length: 200 }).map((_, index) => {
+  const status = faker.helpers.arrayElement([
+    "todo",
+    "in_progress",
+    "completed",
+  ]);
 
-  projectId: PROJECTS[index % PROJECTS.length].id,
+  const createdAt = faker.date.between({
+    from: new Date("2025-01-01"),
+    to: new Date(),
+  });
 
-  workspaceId: WORKSPACES[index % WORKSPACES.length].id,
+  const completedAt =
+    status === "completed"
+      ? faker.date.between({
+          from: createdAt,
+          to: new Date(),
+        })
+      : null;
 
-  organizationId: ORGANIZATIONS[index % ORGANIZATIONS.length].id,
+  const updatedAt = faker.date.between({
+    from: createdAt,
+    to: new Date(),
+  });
 
-  createdById: USERS[index % USERS.length].id,
+  return {
+    id: ulid(),
 
-  title: faker.hacker.phrase(),
+    projectId: PROJECTS[index % PROJECTS.length].id,
 
-  description: faker.lorem.paragraph(),
+    workspaceId: WORKSPACES[index % WORKSPACES.length].id,
 
-  status: faker.helpers.arrayElement(["todo", "in_progress", "completed"]),
+    organizationId: ORGANIZATIONS[index % ORGANIZATIONS.length].id,
 
-  priority: faker.helpers.arrayElement(["low", "medium", "high"]),
+    createdById: USERS[index % USERS.length].id,
 
-  estimatedHours: faker.number.int({
-    min: 1,
-    max: 40,
-  }),
+    title: faker.hacker.phrase(),
 
-  actualHours: faker.number.int({
-    min: 1,
-    max: 50,
-  }),
+    description: faker.lorem.paragraph(),
 
-  version: 1,
+    status,
 
-  createdAt: new Date(),
+    priority: faker.helpers.arrayElement(["low", "medium", "high"]),
 
-  updatedAt: new Date(),
-}));
+    estimatedHours: faker.number.int({
+      min: 1,
+      max: 40,
+    }),
+
+    actualHours: faker.number.int({
+      min: 1,
+      max: 50,
+    }),
+
+    version: 1,
+
+    createdAt,
+
+    updatedAt,
+
+    completedAt,
+  };
+});

@@ -9,40 +9,73 @@ import { USERS } from "./users.data";
 
 faker.seed(12345);
 
-export const SUBTASKS = Array.from({ length: 200 }).map((_, index) => ({
-  id: ulid(),
+export const SUBTASKS = Array.from({ length: 400 }).map((_, index) => {
+  const status = faker.helpers.arrayElement([
+    "todo",
+    "in_progress",
+    "completed",
+  ]);
 
-  taskId: TASKS[index % TASKS.length].id,
+  const createdAt = faker.date.between({
+    from: new Date("2025-01-01"),
 
-  projectId: PROJECTS[index % PROJECTS.length].id,
+    to: new Date(),
+  });
 
-  workspaceId: WORKSPACES[index % WORKSPACES.length].id,
+  const completedAt =
+    status === "completed"
+      ? faker.date.between({
+          from: createdAt,
 
-  organizationId: ORGANIZATIONS[index % ORGANIZATIONS.length].id,
+          to: new Date(),
+        })
+      : null;
 
-  createdById: USERS[index % USERS.length].id,
+  const updatedAt = faker.date.between({
+    from: createdAt,
 
-  title: faker.hacker.phrase(),
+    to: new Date(),
+  });
 
-  description: faker.lorem.sentence(),
+  return {
+    id: ulid(),
 
-  status: faker.helpers.arrayElement(["todo", "in_progress", "completed"]),
+    taskId: TASKS[index % TASKS.length].id,
 
-  priority: faker.helpers.arrayElement(["low", "medium", "high"]),
+    projectId: PROJECTS[index % PROJECTS.length].id,
 
-  estimatedHours: faker.number.int({
-    min: 1,
-    max: 20,
-  }),
+    workspaceId: WORKSPACES[index % WORKSPACES.length].id,
 
-  actualHours: faker.number.int({
-    min: 1,
-    max: 30,
-  }),
+    organizationId: ORGANIZATIONS[index % ORGANIZATIONS.length].id,
 
-  version: 1,
+    createdById: USERS[index % USERS.length].id,
 
-  createdAt: new Date(),
+    title: faker.hacker.phrase(),
 
-  updatedAt: new Date(),
-}));
+    description: faker.lorem.sentence(),
+
+    status,
+
+    priority: faker.helpers.arrayElement(["low", "medium", "high"]),
+
+    estimatedHours: faker.number.int({
+      min: 1,
+
+      max: 20,
+    }),
+
+    actualHours: faker.number.int({
+      min: 1,
+
+      max: 30,
+    }),
+
+    version: 1,
+
+    createdAt,
+
+    updatedAt,
+
+    completedAt,
+  };
+});

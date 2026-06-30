@@ -1,4 +1,4 @@
-export * from "./user-productivity-metrics.table";
+export * from "./user_productivity_metrics.table";
 export * from "./workspace-efficiency-metrics.table";
 export * from "./task_metrics.table";
 export * from "./project-performance-metrics.table";

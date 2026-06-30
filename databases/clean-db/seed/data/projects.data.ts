@@ -6,7 +6,7 @@ import { USERS } from "./users.data";
 
 faker.seed(12345);
 
-export const PROJECTS = Array.from({ length: 20 }).map((_, index) => ({
+export const PROJECTS = Array.from({ length: 50 }).map((_, index) => ({
   id: ulid(),
 
   workspaceId: WORKSPACES[index % WORKSPACES.length].id,

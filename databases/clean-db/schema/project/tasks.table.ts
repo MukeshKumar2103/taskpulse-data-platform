@@ -55,6 +55,8 @@ export const tasks = pgTable(
 
     createdAt: timestamp("created_at").defaultNow().notNull(),
 
+    completedAt: timestamp("completed_at").defaultNow().notNull(),
+
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
 
     deletedAt: timestamp("deleted_at"),
